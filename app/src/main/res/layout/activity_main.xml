@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/car"
+        android:layout_width="194dp"
+        android:layout_height="217dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/carf"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="48dp"
+            android:text="F"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="Car Control"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/carb"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="150dp"
+            android:text="B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/carl"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="98dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="L"
+            app:layout_constraintEnd_toStartOf="@+id/carf"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/carr"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="R"
+            app:layout_constraintBottom_toBottomOf="@+id/carl"
+            app:layout_constraintStart_toEndOf="@+id/carf"
+            app:layout_constraintTop_toTopOf="@+id/carl" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cam"
+        android:layout_width="194dp"
+        android:layout_height="217dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="Camera Control"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/camf"
+            android:layout_width="45dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="48dp"
+            android:text="F"
+            app:layout_constraintEnd_toEndOf="@+id/camb"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="@+id/camb"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/camb"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="150dp"
+            android:text="B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/caml"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="98dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="L"
+            app:layout_constraintEnd_toStartOf="@+id/camf"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/camr"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="98dp"
+            android:text="R"
+            app:layout_constraintStart_toEndOf="@+id/camf"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="312dp"
+        android:layout_height="353dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </WebView>
+
+    <TextView
+        android:id="@+id/carStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="Car at rest"
+        app:layout_constraintBottom_toTopOf="@+id/car"
+        app:layout_constraintEnd_toEndOf="@+id/car"
+        app:layout_constraintStart_toStartOf="@+id/car" />
+
+</android.support.constraint.ConstraintLayout>
