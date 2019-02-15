@@ -164,4 +164,15 @@
         app:layout_constraintEnd_toEndOf="@+id/car"
         app:layout_constraintStart_toStartOf="@+id/car" />
 
+    <TextView
+        android:id="@+id/cameraStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="Camera at rest"
+        app:layout_constraintBottom_toTopOf="@+id/cam"
+        app:layout_constraintEnd_toEndOf="@+id/cam"
+        app:layout_constraintStart_toStartOf="@+id/cam" />
+
 </android.support.constraint.ConstraintLayout>
