@@ -1,30 +1,28 @@
-package com.skar.myapplication;
+package com.skar.SurveillanceCar;
 
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Button;
-import android.bluetooth.BluetoothSocket;
 
 import java.io.IOException;
 import java.util.UUID;
 
-import android.os.AsyncTask;
-import android.app.ProgressDialog;
-
 public class MainActivity extends AppCompatActivity {
 
     private Button carf, carb, carl, carr, camf, camb, caml, camr;
-    private TextView carStatus;
+    private TextView carStatus, cameraStatus;
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private ProgressDialog progress;
@@ -65,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
         camb = findViewById(R.id.camb);
         caml = findViewById(R.id.caml);
         camr = findViewById(R.id.camr);
+        cameraStatus = findViewById(R.id.cameraStatus);
 
+        // Car Button Listeners
         carf.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event){
@@ -121,6 +121,59 @@ public class MainActivity extends AppCompatActivity {
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     carCommand("S"); //to stop car when button is released
                     carStatus.setText("Car at rest");
+                }
+                return true;
+            }
+        });
+
+        // Camera Button Listeners
+        camf.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    cameraStatus.setText("Camera going upwards");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    cameraStatus.setText("Camera at rest");
+                }
+                return true;
+            }
+        });
+
+        camb.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    cameraStatus.setText("Camera going downwards");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    cameraStatus.setText("Camera at rest");
+                }
+                return true;
+            }
+        });
+
+        caml.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    cameraStatus.setText("Camera going left");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    cameraStatus.setText("Camera at rest");
+                }
+                return true;
+            }
+        });
+
+        camr.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    cameraStatus.setText("Camera going right");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    cameraStatus.setText("Camera at rest");
                 }
                 return true;
             }
