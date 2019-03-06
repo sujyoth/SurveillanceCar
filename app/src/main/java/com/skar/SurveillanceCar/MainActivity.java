@@ -16,7 +16,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isBtConnected = false;
     private static String address;
     private static String name;
+    private static String ipaddr;
+    private String CameraURL, CameraControlURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +50,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         address = intent.getStringExtra(DeviceList.EXTRA_ADDRESS);
         name = intent.getStringExtra(DeviceList.EXTRA_NAME);
+        ipaddr = intent.getStringExtra(DeviceList.EXTRA_IP);
 
         new ConnectBT().execute();
 
+        CameraURL = (String) getResources().getText(R.string.default_camURL);
+        CameraControlURL = (String) getResources().getText(R.string.default_camControlURL);
+
         //for WebView component
-        String url="http://www.youtube.com";
+        String url="http://"+ipaddr+":8000/";
         WebView vid= this.findViewById(R.id.webView);
         vid.setWebViewClient(new WebViewClient());
         vid.getSettings().setJavaScriptEnabled(true);
@@ -131,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    String URL = CameraControlURL + "0";
+                    new WebPageTask().execute(URL);
                     cameraStatus.setText("Camera going upwards");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP) {
@@ -270,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // For Car Commands
     private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
         private boolean ConnectSuccess = true; //if it's here, it's almost connected
@@ -313,6 +329,37 @@ public class MainActivity extends AppCompatActivity {
                 isBtConnected = true;
             }
             progress.dismiss();
+        }
+    }
+
+    // For Camera Commands
+    private class WebPageTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            String response = "";
+            for (String url : urls) {
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet httpGet = new HttpGet(url);
+                try {
+                    HttpResponse execute = client.execute(httpGet);
+                    InputStream content = execute.getEntity().getContent();
+
+                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                    String s = "";
+                    while ((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+
+                } catch (Exception e) {
+                    msg("Error in WebPageTask");
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //textView.setText(result);
         }
     }
 

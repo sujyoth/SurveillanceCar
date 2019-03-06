@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,8 +21,10 @@ public class DeviceList extends AppCompatActivity {
     ListView deviceList;
     private BluetoothAdapter btAdapter = null;
     private Set<BluetoothDevice> pairedDevices;
+    private EditText IPText = null;
     public static String EXTRA_ADDRESS = "device_address";
     public static String EXTRA_NAME = "device_name";
+    public static String EXTRA_IP = "device_ip";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class DeviceList extends AppCompatActivity {
         checkBTState();
         setContentView(R.layout.activity_device_list);
         deviceList = findViewById(R.id.list1);
+        IPText = findViewById(R.id.IPAddr);
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -65,20 +69,27 @@ public class DeviceList extends AppCompatActivity {
     {
         public void onItemClick (AdapterView<?> av, View v, int arg2, long arg3)
         {
-            checkBTState();
-            // Get the device MAC address, the last 17 chars in the View
-            String info = ((TextView) v).getText().toString();
-            String address = info.substring(info.length() - 17);
+            if(!IPText.getText().toString().equals("")) {
+                checkBTState();
+                // Get the device MAC address, the last 17 chars in the View
+                String info = ((TextView) v).getText().toString();
+                String address = info.substring(info.length() - 17);
+                String ipaddr = IPText.getText().toString();
 
-            String bt_device_name = info.substring(6,(info.length() - 23));
+                String bt_device_name = info.substring(6, (info.length() - 23));
 
-            // Make an intent to start next activity.
-            Intent i = new Intent(DeviceList.this, MainActivity.class);
+                // Make an intent to start next activity.
+                Intent i = new Intent(DeviceList.this, MainActivity.class);
 
-            //Change the activity.
-            i.putExtra(EXTRA_ADDRESS, address); //this will be received in MainActivity
-            i.putExtra(EXTRA_NAME, bt_device_name); //passing name for toast in MainActivity
-            startActivity(i);
+                //Change the activity.
+                i.putExtra(EXTRA_ADDRESS, address); //this will be received in MainActivity
+                i.putExtra(EXTRA_NAME, bt_device_name); //passing name for toast in MainActivity
+                i.putExtra(EXTRA_IP, ipaddr); //passing ip address
+                startActivity(i);
+            } else {
+                msg("Enter IP Address before continuing!");
+            }
+
         }
     };
 
@@ -93,6 +104,11 @@ public class DeviceList extends AppCompatActivity {
                 startActivityForResult(enableBtIntent, 1);
             }
         }
+    }
+
+    private void msg(String s)
+    {
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
     }
 
 }
