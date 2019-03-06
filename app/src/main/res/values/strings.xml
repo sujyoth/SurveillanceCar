@@ -1,4 +1,2 @@
 <resources>
-    <string name="default_camURL"><![CDATA[http://192.168.1.20:8081/videostream.cgi?user=admin&pwd=admin123&resolution=8]]></string>
-    <string name="default_camControlURL"><![CDATA[http://192.168.1.20:8081/decoder_control.cgi?user=admin&pwd=admin123&command=]]></string>
 </resources>

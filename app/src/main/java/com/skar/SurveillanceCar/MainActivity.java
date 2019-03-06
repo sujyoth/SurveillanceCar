@@ -16,14 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private static String address;
     private static String name;
     private static String ipaddr;
-    private String CameraURL, CameraControlURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
         ipaddr = intent.getStringExtra(DeviceList.EXTRA_IP);
 
         new ConnectBT().execute();
-
-        CameraURL = (String) getResources().getText(R.string.default_camURL);
-        CameraControlURL = (String) getResources().getText(R.string.default_camControlURL);
 
         //for WebView component
         String url="http://"+ipaddr+":8000/";
@@ -144,11 +133,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    String URL = CameraControlURL + "0";
-                    new WebPageTask().execute(URL);
+                    camCommand("U");
                     cameraStatus.setText("Camera going upwards");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP) {
+                    camCommand("X");
                     cameraStatus.setText("Camera at rest");
                 }
                 return true;
@@ -159,9 +148,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    camCommand("D");
                     cameraStatus.setText("Camera going downwards");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP) {
+                    camCommand("X");
                     cameraStatus.setText("Camera at rest");
                 }
                 return true;
@@ -172,9 +163,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    camCommand("W");
                     cameraStatus.setText("Camera going left");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP) {
+                    camCommand("X");
                     cameraStatus.setText("Camera at rest");
                 }
                 return true;
@@ -185,9 +178,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    camCommand("E");
                     cameraStatus.setText("Camera going right");
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP) {
+                    camCommand("X");
                     cameraStatus.setText("Camera at rest");
                 }
                 return true;
@@ -332,36 +327,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // For Camera Commands
-    private class WebPageTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-            String response = "";
-            for (String url : urls) {
-                DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(url);
-                try {
-                    HttpResponse execute = client.execute(httpGet);
-                    InputStream content = execute.getEntity().getContent();
-
-                    BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                    String s = "";
-                    while ((s = buffer.readLine()) != null) {
-                        response += s;
-                    }
-
-                } catch (Exception e) {
-                    msg("Error in WebPageTask");
-                }
-            }
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            //textView.setText(result);
-        }
-    }
 
     private void msg(String s)
     {
@@ -370,6 +335,17 @@ public class MainActivity extends AppCompatActivity {
 
     // For Car Commands: (Forward - "F" Backward - "B" Left - "L" Right - "R" Stop = "S")
     private void carCommand(String s) {
+        if(btSocket!=null) {
+            try {
+                btSocket.getOutputStream().write(s.getBytes()); // sends Command
+            } catch (IOException E) {
+                msg("Error");
+            }
+        }
+    }
+
+    // For Camera Commands: (Forward - "U" Backward - "D" Left - "W" Right - "E" Stop = "X")
+    private void camCommand(String s) {
         if(btSocket!=null) {
             try {
                 btSocket.getOutputStream().write(s.getBytes()); // sends Command
