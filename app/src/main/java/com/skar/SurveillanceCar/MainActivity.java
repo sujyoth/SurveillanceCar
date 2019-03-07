@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     carStatus.setText("Car at rest");
                 }
                 return true;
+
             }
         });
 
@@ -188,84 +189,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        // Old button code (Not being used as car keeps continuing action even after button is released)
-        /*carf.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(btSocket!=null) {
-                    try {
-                        btSocket.getOutputStream().write("F".getBytes());
-                        msg("CAR F");
-                    } catch (IOException E) {
-                        msg("Error");                   }
-                }
-            }
-        });
-
-        carb.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(btSocket!=null) {
-                    try {
-                        btSocket.getOutputStream().write("B".getBytes());
-                        msg("CAR B");
-                    } catch (IOException E) {
-                        msg("Error");
-                    }
-                }
-            }
-        });
-
-        carl.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(btSocket!=null) {
-                    try {
-                        btSocket.getOutputStream().write("L".getBytes());
-                        msg("CAR L");
-                    } catch (IOException E) {
-                        msg("Error");                         }
-                }
-            }
-        });
-
-        carr.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(btSocket!=null) {
-                    try {
-                        btSocket.getOutputStream().write("R".getBytes());
-                        msg("CAR R");
-                    } catch (IOException E) {
-                        msg("Error");                         }
-                }
-            }
-        });
-
-        cars.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(btSocket!=null) {
-                    try {
-                        btSocket.getOutputStream().write("S".getBytes());
-                        msg("CAR S");
-                    } catch (IOException E) {
-                        msg("Error");                         }
-                }
-            }
-        });*/
-
     }
 
     @Override
@@ -275,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             btSocket.close();
+            finish();
         } catch(java.io.IOException E) {
             msg("Error while closing BT connection.");
         }

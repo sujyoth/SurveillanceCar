@@ -2,10 +2,12 @@ package com.skar.SurveillanceCar;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -39,6 +41,7 @@ public class DeviceList extends AppCompatActivity {
         setContentView(R.layout.activity_device_list);
         deviceList = findViewById(R.id.list1);
         IPText = findViewById(R.id.IPAddr);
+        //IPText.setText("192.168.1.1");
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -88,6 +91,9 @@ public class DeviceList extends AppCompatActivity {
                 startActivity(i);
             } else {
                 msg("Enter IP Address before continuing!");
+                IPText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(IPText, InputMethodManager.SHOW_IMPLICIT);
             }
 
         }
@@ -106,8 +112,7 @@ public class DeviceList extends AppCompatActivity {
         }
     }
 
-    private void msg(String s)
-    {
+    private void msg(String s) {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
     }
 
