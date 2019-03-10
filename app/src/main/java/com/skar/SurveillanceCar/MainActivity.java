@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         new ConnectBT().execute();
 
         //for WebView component
-        String url="http://"+ipaddr+":8000/";
+        String url=ipaddr;
         WebView vid= this.findViewById(R.id.webView);
         vid.setWebViewClient(new WebViewClient());
         vid.getSettings().setJavaScriptEnabled(true);

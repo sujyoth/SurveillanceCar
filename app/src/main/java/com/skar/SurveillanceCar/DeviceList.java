@@ -41,7 +41,7 @@ public class DeviceList extends AppCompatActivity {
         setContentView(R.layout.activity_device_list);
         deviceList = findViewById(R.id.list1);
         IPText = findViewById(R.id.IPAddr);
-        //IPText.setText("192.168.1.1");
+        IPText.setText("http://192.168.1.1:8000/index.html");
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
