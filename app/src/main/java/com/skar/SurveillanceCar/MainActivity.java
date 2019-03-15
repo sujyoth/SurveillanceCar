@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button carf, carb, carl, carr, camf, camb, caml, camr;
+    private Button carf, carb, carl, carr, camf, camb, caml, camr, disconnect;
     private TextView carStatus, cameraStatus;
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         caml = findViewById(R.id.caml);
         camr = findViewById(R.id.camr);
         cameraStatus = findViewById(R.id.cameraStatus);
+
+        disconnect = findViewById(R.id.disconnect);
 
         // Car Button Listeners
         carf.setOnTouchListener(new View.OnTouchListener() {
@@ -189,19 +191,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carCommand("Q");
+                disconnectBT();
+            }
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         setContentView(R.layout.activity_main);
-
-        try {
-            btSocket.close();
-            finish();
-        } catch(java.io.IOException E) {
-            msg("Error while closing BT connection.");
-        }
+        disconnectBT();
     }
 
     // For Car Commands
@@ -257,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
     }
 
-    // For Car Commands: (Forward - "F" Backward - "B" Left - "L" Right - "R" Stop = "S")
+    // For Car Commands: (Forward - "F", Backward - "B", Left - "L", Right - "R", Stop = "S", Quit = "Q" )
     private void carCommand(String s) {
         if(btSocket!=null) {
             try {
@@ -276,6 +280,16 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException E) {
                 msg("Error");
             }
+        }
+    }
+
+    private void disconnectBT() {
+        try {
+            btSocket.close();
+            msg("Disconnected successfully.");
+            finish();
+        } catch(java.io.IOException E) {
+            msg("Error while closing BT connection.");
         }
     }
 }

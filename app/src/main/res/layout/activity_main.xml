@@ -139,8 +139,8 @@
 
     <WebView
         android:id="@+id/webView"
-        android:layout_width="345dp"
-        android:layout_height="246dp"
+        android:layout_width="340dp"
+        android:layout_height="255dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -170,5 +170,18 @@
         app:layout_constraintBottom_toTopOf="@+id/cam"
         app:layout_constraintEnd_toEndOf="@+id/cam"
         app:layout_constraintStart_toStartOf="@+id/cam" />
+
+    <Button
+        android:id="@+id/disconnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Disconnect"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/webView" />
 
 </android.support.constraint.ConstraintLayout>
